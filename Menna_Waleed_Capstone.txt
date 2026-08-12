@@ -1,0 +1,130 @@
+##SQL Code
+
+CREATE VIEW v_data_jobs_clean AS
+
+WITH ranked_postings AS (
+    SELECT
+        p.*,
+        
+        ' ' || LOWER(p.title) || ' ' AS padded_title,
+        ROW_NUMBER() OVER (
+            PARTITION BY p.job_id
+            ORDER BY p.original_listed_time DESC
+        ) AS row_num
+    FROM postings AS p
+    WHERE p.job_id IS NOT NULL
+      AND TRIM(p.job_id) <> ''
+      AND p.title IS NOT NULL 
+)
+
+SELECT
+    p.job_id,
+    p.company_id,
+    COALESCE(c.name, p.company_name) AS company_name,
+    p.title,
+    p.location,
+    p.work_type,
+    p.formatted_experience_level AS experience_level,
+    p.original_listed_time AS posting_date,
+    p.views,
+    p.applies,
+
+    
+    CASE 
+        WHEN LOWER(p.location) LIKE '%remote%' 
+          OR LOWER(p.location) LIKE '%anywhere%'
+          OR LOWER(p.title) LIKE '%remote%'
+          OR LOWER(p.title) LIKE '%wfh%'
+          OR LOWER(p.title) LIKE '%work from home%'
+            THEN 'Remote'
+        ELSE 'On-site / Hybrid'
+    END AS workplace_model,
+
+   
+    CASE
+        -- Data Analytics
+        WHEN (p.padded_title LIKE '%data%' AND p.padded_title LIKE '%analy%')
+          OR (p.padded_title LIKE '% bi %' AND p.padded_title LIKE '%analy%')
+          OR (p.padded_title LIKE '%business%' AND p.padded_title LIKE '%intelligence%')
+          OR (p.padded_title LIKE '%reporting%' AND p.padded_title LIKE '%analy%')
+          OR (p.padded_title LIKE '%insights%' AND p.padded_title LIKE '%analy%')
+          OR (p.padded_title LIKE '%database%' AND p.padded_title LIKE '%analy%')
+            THEN 'Data Analytics'
+
+        -- Data Science
+        WHEN (p.padded_title LIKE '%data%' AND p.padded_title LIKE '%scien%')
+          OR (p.padded_title LIKE '%machine%' AND p.padded_title LIKE '%learning%')
+          OR (p.padded_title LIKE '% ml %' AND p.padded_title LIKE '%engineer%')
+          OR (p.padded_title LIKE '% ai %' AND p.padded_title LIKE '%engineer%')
+            THEN 'Data Science'
+
+        -- Data Engineering
+        WHEN (p.padded_title LIKE '%data%' AND p.padded_title LIKE '%engineer%')
+          OR (p.padded_title LIKE '%analytics%' AND p.padded_title LIKE '%engineer%')
+          OR (p.padded_title LIKE '%data%' AND p.padded_title LIKE '%architect%')
+          OR (p.padded_title LIKE '% etl %' AND p.padded_title LIKE '%engineer%')
+            THEN 'Data Engineering'
+    END AS Role_Category,
+
+    
+    CASE
+        WHEN s.pay_period = 'HOURLY' THEN
+            COALESCE(s.med_salary, (s.min_salary + s.max_salary) / 2.0) * 2080
+
+        WHEN s.pay_period = 'WEEKLY' THEN
+            COALESCE(s.med_salary, (s.min_salary + s.max_salary) / 2.0) * 52
+
+        WHEN s.pay_period = 'BIWEEKLY' THEN
+            COALESCE(s.med_salary, (s.min_salary + s.max_salary) / 2.0) * 26
+
+        WHEN s.pay_period = 'MONTHLY' THEN
+            COALESCE(s.med_salary, (s.min_salary + s.max_salary) / 2.0) * 12
+
+        WHEN s.pay_period = 'YEARLY' THEN
+            COALESCE(s.med_salary, (s.min_salary + s.max_salary) / 2.0)
+
+        ELSE NULL
+    END AS Annualized_Salary
+
+FROM ranked_postings AS p
+
+LEFT JOIN companies AS c
+    ON p.company_id = c.company_id
+
+LEFT JOIN salaries AS s
+    ON p.job_id = s.job_id
+
+WHERE p.row_num = 1
+  AND 
+  
+  (
+       (p.padded_title LIKE '%data%' AND p.padded_title LIKE '%analy%')
+    OR (p.padded_title LIKE '% bi %' AND p.padded_title LIKE '%analy%')
+    OR (p.padded_title LIKE '%business%' AND p.padded_title LIKE '%intelligence%')
+    OR (p.padded_title LIKE '%reporting%' AND p.padded_title LIKE '%analy%')
+    OR (p.padded_title LIKE '%insights%' AND p.padded_title LIKE '%analy%')
+    OR (p.padded_title LIKE '%database%' AND p.padded_title LIKE '%analy%')
+    OR (p.padded_title LIKE '%data%' AND p.padded_title LIKE '%scien%')
+    OR (p.padded_title LIKE '%machine%' AND p.padded_title LIKE '%learning%')
+    OR (p.padded_title LIKE '% ml %' AND p.padded_title LIKE '%engineer%')
+    OR (p.padded_title LIKE '% ai %' AND p.padded_title LIKE '%engineer%')
+    OR (p.padded_title LIKE '%data%' AND p.padded_title LIKE '%engineer%')
+    OR (p.padded_title LIKE '%analytics%' AND p.padded_title LIKE '%engineer%')
+    OR (p.padded_title LIKE '%data%' AND p.padded_title LIKE '%architect%')
+    OR (p.padded_title LIKE '% etl %' AND p.padded_title LIKE '%engineer%')
+  )
+  AND 
+  
+  (
+        p.padded_title NOT LIKE '%financial%'
+    AND p.padded_title NOT LIKE '%cybersecurity%'
+    AND p.padded_title NOT LIKE '%systems analy%'
+    AND p.padded_title NOT LIKE '%software engineer%'
+  );
+
+##Testing Code
+
+SELECT
+    COUNT(*) AS total_rows,
+    COUNT(DISTINCT job_id) AS distinct_job_ids
+FROM v_data_jobs_clean;
