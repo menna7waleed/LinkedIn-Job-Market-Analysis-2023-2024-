@@ -19,12 +19,14 @@ The dashboard was created using the cleaned dataset exported from the SQL databa
 ### Dashboard Preview
 
 
-![Dashboard Overview](<img width="1109" height="632" alt="PowerBI_Dashboard_Screenshot1" src="https://github.com/user-attachments/assets/54c3cd0a-11be-4719-9af5-9cfb4d5ab486" />
+![Dashboard Overview](<img width="1109" height="632" alt="PowerBI_Dashboard_Screenshot1" src="https://github.com/user-attachments/assets/5a801d34-10ce-42d2-a0ea-16e62f887b41" />
+
 )
 
 
 
-![Dashboard Top Skills](<img width="1111" height="632" alt="PowerBI_Dashboard_Screenshot2" src="https://github.com/user-attachments/assets/21fa9ab6-dc37-438d-9854-ccb40d031897" />
+![Dashboard Top Skills](<img width="1111" height="632" alt="PowerBI_Dashboard_Screenshot2" src="https://github.com/user-attachments/assets/a0f20916-7a3d-4d5c-833c-4f67cf12c10e" />
+
 )
 
 
