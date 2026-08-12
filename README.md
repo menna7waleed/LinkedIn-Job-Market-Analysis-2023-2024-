@@ -19,21 +19,17 @@ The dashboard was created using the cleaned dataset exported from the SQL databa
 ### Dashboard Preview
 
 
-![Dashboard Overview](<img width="1109" height="632" alt="PowerBI_Dashboard_Screenshot1" src="https://github.com/user-attachments/assets/5a801d34-10ce-42d2-a0ea-16e62f887b41" />
-
+(
+<img width="1109" height="632" alt="PowerBI_Dashboard_Screenshot1" src="https://github.com/user-attachments/assets/5a801d34-10ce-42d2-a0ea-16e62f887b41" />
 )
 
 
 
-![Dashboard Top Skills](<img width="1111" height="632" alt="PowerBI_Dashboard_Screenshot2" src="https://github.com/user-attachments/assets/a0f20916-7a3d-4d5c-833c-4f67cf12c10e" />
 
+(
+<img width="1111" height="632" alt="PowerBI_Dashboard_Screenshot2" src="https://github.com/user-attachments/assets/a0f20916-7a3d-4d5c-833c-4f67cf12c10e" />
 )
 
-
-
-## 3. Insights & Recommendations
-* **Key Findings:** (Add your key findings here, e.g., the most in-demand tech stack or the dominance of remote vs. on-site roles).
-* **Recommendations:** (Add strategic recommendations for job seekers or HR professionals based on the data trends).
 
 ---
 *This project was developed by: Menna_Waleed*
