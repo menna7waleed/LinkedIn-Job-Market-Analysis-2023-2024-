@@ -6,8 +6,7 @@ Welcome to the LinkedIn Job Market Analysis project. This project explores and a
 The data extraction and cleaning phases for this project were performed entirely using SQL. The queries used for processing are documented and saved in a text file.
 
 **To view or replicate the data processing:**
-1. Open the SQL queries text file (e.g., `[Uploading Menna_Waleed_Capstone.txt…]()
-`).
+1. Open the SQL queries text file (e.g., `[Uploading Menna_Waleed_Capstone.txt…]()`).
 2. Review or execute the queries in your SQL environment.
 
 **The SQL processing generates:**
@@ -19,13 +18,13 @@ The dashboard was created using the cleaned dataset exported from the SQL databa
 
 ### Dashboard Preview
 
-**Dashboard Overview**
-![Dashboard Overview](<img width="1109" height="632" alt="PowerBI_Dashboard_Screenshot1" src="https://github.com/user-attachments/assets/7fd9e70a-d0bd-4e0b-944e-56bc48283bc4" />
+
+![Dashboard Overview](<img width="1109" height="632" alt="PowerBI_Dashboard_Screenshot1" src="https://github.com/user-attachments/assets/54c3cd0a-11be-4719-9af5-9cfb4d5ab486" />
 )
 
-**Dashboard Top Skills**
-![Dashboard Top Skills]([Uploading Menna_Waleed_Capstone.txt…]()
-<img width="1111" height="632" alt="PowerBI_Dashboard_Screenshot2" src="https://github.com/user-attachments/assets/1dbdf572-555b-45db-8cdf-98d8df43c664" />
+
+
+![Dashboard Top Skills](<img width="1111" height="632" alt="PowerBI_Dashboard_Screenshot2" src="https://github.com/user-attachments/assets/21fa9ab6-dc37-438d-9854-ccb40d031897" />
 )
 
 
